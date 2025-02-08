@@ -1,24 +1,21 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+import defaultData from "./default_data";
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+const textBox = document.querySelector("#code-typer");
+const text = defaultData;
 
-setupCounter(document.querySelector('#counter'))
+let lineCounter = 0;
+for (let i = 0; i < text.length - 1; ) {
+	const p = document.createElement("p");
+	if (lineCounter < 10) p.innerHTML += "&nbsp&nbsp&nbsp&nbsp";
+	else if (lineCounter < 100) p.innerHTML += "&nbsp&nbsp";
+	p.innerHTML += lineCounter + "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
+	lineCounter++;
+	while (text[i] != "\n") {
+		if (text[i] == "\t")
+			p.innerHTML += "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
+		else p.innerHTML += text[i];
+		i++;
+	}
+	i++;
+	textBox.appendChild(p);
+}
